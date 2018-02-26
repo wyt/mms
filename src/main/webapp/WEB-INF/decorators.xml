@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+	<!-- 例外的路径 -->
+    <excludes>
+        <pattern>/script/*</pattern>
+        <pattern>/style/*</pattern>
+        <pattern>/images/*</pattern>
+        <pattern>/view/*</pattern>
+        <pattern>/js/*</pattern>
+        <pattern>/login/ui*</pattern>
+        <pattern>/login/ui.mvc*</pattern>
+        <pattern>/sys/*/getItems*.mvc</pattern>
+        <pattern>/sys/*/save.mvc</pattern>
+        <pattern>/sys/*/delete.mvc</pattern>
+        <pattern>/sys/*/edit*.mvc*</pattern><!-- 最后一个*表示匹配带参数的url -->
+        <pattern>/sys/*/getTypes.mvc</pattern>
+        <pattern>/sys/*/getPrivileges.mvc</pattern>
+        <pattern>/sys/*/getDepts.mvc</pattern>
+        <pattern>/sys/user/queryName.mvc*</pattern>
+        <pattern>/sys/user/queryPass.mvc*</pattern>
+        <pattern>/data/*/getItems.mvc*</pattern>
+        <pattern>/data/*/save.mvc</pattern>
+        <pattern>/data/*/delete.mvc*</pattern>
+        <pattern>/data/*/edit.mvc*</pattern>
+        <pattern>/data/material/detail.mvc*</pattern>
+        <pattern>/data/material/saveFile.mvc*</pattern>
+         <pattern>/data/material/deleteImage.mvc*</pattern>
+        <pattern>/data/material/index.mvc</pattern>
+        <pattern>/stock/*/getItems.mvc</pattern>
+        <pattern>/stock/*/create.mvc*</pattern>
+        <pattern>/stock/*/save.mvc</pattern>
+        <pattern>/stock/*/edit.mvc*</pattern>
+        <pattern>/stock/*/getInitDetails.mvc</pattern>
+        <pattern>/stock/*/getBillDetails.mvc*</pattern>
+        <pattern>/open/api/*</pattern>
+        <pattern>/oauth/*</pattern>
+        <pattern>/test/*</pattern>
+    </excludes>
+    <decorator name="system" page="system.jsp">
+        <pattern>/sys/*</pattern>
+    </decorator>
+    <decorator name="data" page="data.jsp">
+        <pattern>/data/*</pattern>
+    </decorator>
+    <decorator name="stock" page="stock.jsp">
+        <pattern>/stock/*</pattern>
+    </decorator>
+    <decorator name="main" page="main.jsp">
+    	<!-- 所有的路径都引用main模板(当然已配置的和excludes的除外) -->
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>

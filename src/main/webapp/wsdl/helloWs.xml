@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<wsdl:definitions name="HelloWebService"
+	targetNamespace="http://impl.helloworld.webservice.mms.jnywsoft.com/"
+	xmlns:ns1="http://helloworld.webservice.mms.jnywsoft.com/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.helloworld.webservice.mms.jnywsoft.com/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:import
+		location="http://127.0.0.1/mms/webservice/helloWs?wsdl=HelloWebService.wsdl"
+		namespace="http://helloworld.webservice.mms.jnywsoft.com/">
+	</wsdl:import>
+	<wsdl:binding name="HelloWebServiceSoapBinding" type="ns1:HelloWebService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+		<wsdl:operation name="sayHi">
+			<soap:operation soapAction="" style="document"></soap:operation>
+			<wsdl:input name="sayHi">
+				<soap:body use="literal"></soap:body>
+			</wsdl:input>
+			<wsdl:output name="sayHiResponse">
+				<soap:body use="literal"></soap:body>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="HelloWebService">
+		<wsdl:port binding="tns:HelloWebServiceSoapBinding" name="HelloWebServiceImplPort">
+			<soap:address location="http://127.0.0.1/mms/webservice/helloWs"></soap:address>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

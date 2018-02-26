@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="WincReportWs" targetNamespace="http://winc_report.webservice.mms.jnywsoft.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://winc_report.webservice.mms.jnywsoft.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://winc_report.webservice.mms.jnywsoft.com/" version="1.0" xmlns:tns="http://winc_report.webservice.mms.jnywsoft.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="getReportUsedToClient" type="tns:getReportUsedToClient"/>
+<xs:element name="getReportUsedToClientResponse" type="tns:getReportUsedToClientResponse"/>
+<xs:element name="getReportUsedToServer" type="tns:getReportUsedToServer"/>
+<xs:element name="getReportUsedToServerResponse" type="tns:getReportUsedToServerResponse"/>
+<xs:complexType name="getReportUsedToClient">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="report_id" type="xs:string"/>
+      <xs:element minOccurs="0" name="report_name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getReportUsedToClientResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:wincReportInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="wincReportInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="reportId" type="xs:string"/>
+      <xs:element minOccurs="0" name="reportName" type="xs:string"/>
+      <xs:element minOccurs="0" name="binContent" ns1:expectedContentTypes="application/octet-stream" type="xs:base64Binary" xmlns:ns1="http://www.w3.org/2005/05/xmlmime"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getReportUsedToServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="args" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getReportUsedToServerResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:wincReportInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getReportUsedToClientResponse">
+    <wsdl:part element="tns:getReportUsedToClientResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getReportUsedToServerResponse">
+    <wsdl:part element="tns:getReportUsedToServerResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getReportUsedToClient">
+    <wsdl:part element="tns:getReportUsedToClient" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getReportUsedToServer">
+    <wsdl:part element="tns:getReportUsedToServer" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="WincReportWs">
+    <wsdl:operation name="getReportUsedToClient">
+      <wsdl:input message="tns:getReportUsedToClient" name="getReportUsedToClient">
+    </wsdl:input>
+      <wsdl:output message="tns:getReportUsedToClientResponse" name="getReportUsedToClientResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getReportUsedToServer">
+      <wsdl:input message="tns:getReportUsedToServer" name="getReportUsedToServer">
+    </wsdl:input>
+      <wsdl:output message="tns:getReportUsedToServerResponse" name="getReportUsedToServerResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WincReportWsSoapBinding" type="tns:WincReportWs">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getReportUsedToClient">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getReportUsedToClient">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getReportUsedToClientResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getReportUsedToServer">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getReportUsedToServer">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getReportUsedToServerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WincReportWs">
+    <wsdl:port binding="tns:WincReportWsSoapBinding" name="WincReportWsImplPort">
+      <soap:address location="http://127.0.0.1/mms/webservice/wincReportWs"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

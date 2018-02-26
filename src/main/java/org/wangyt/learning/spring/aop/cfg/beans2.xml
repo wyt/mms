@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+					    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+					    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+					    
+	<bean id="personService" class="org.wangyt.learning.spring.aop.service.impl.PersonServiceImpl" />
+	<bean id="personServiceAspect2" class="org.wangyt.learning.spring.aop.service.aspect.PersonServiceAspect2" />
+	
+	<aop:config>
+		<!-- 声明一个切面 -->
+		<aop:aspect id="psa2" ref="personServiceAspect2">
+			<!-- 声明切入点，切入点表达式指明拦截哪些方法 -->
+			<aop:pointcut id="anyMethod" expression="execution (* org.wangyt.learning.spring.aop.service.impl.PersonServiceImpl.*(..))"/>
+			<!-- 声明前置通知 -->
+			<aop:before pointcut-ref="anyMethod" method="doAccessCheck"/>
+			<!-- 声明后置通知 -->
+			<aop:after-returning pointcut-ref="anyMethod" method="doAfterReturning"/>
+			<!-- 声明例外通知 -->
+			<aop:after-throwing pointcut-ref="anyMethod" method="doAfterThrowing"/>
+			<!-- 声明最终通知 -->
+			<aop:after pointcut-ref="anyMethod" method="doAfter"/>
+			<!-- 声明环绕通知 -->
+			<aop:around pointcut-ref="anyMethod" method="doBasicProfiling"/>
+		</aop:aspect>
+	</aop:config>
+</beans>

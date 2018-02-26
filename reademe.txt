@@ -1,0 +1,20 @@
+
+------------------
+2016-9-23 16:38:44
+------------------
+
+01. jetty 9.3 Unsupported major.minor version 52.0
+
+ 1). 需要jdk1.8
+ 2). java -> Installed JREs -> 如果使用1.8, 要勾选为默认的, 然后选编辑 Default VM arguments: -Dmaven.multiModuleProjectDirectory=$M2_HOME
+ 
+02. jetty下修改静态文件热部署出现“请求的操作无法在使用用户映射区域打开的文件执行”错误
+
+ fixed:
+ 1). Add jetty/webdefault.xml
+     将useFileMappedBuffer 改为 false.
+     
+ 2). pom.xml中添加
+	<webApp>
+		<defaultsDescriptor>src/main/resources/jetty/webdefault.xml</defaultsDescriptor>
+	</webApp>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:cxf="http://cxf.apache.org/core"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						   http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+	                       http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+
+	<!-- 导入CXF为扩展Spring提供的几个XML配置文件 -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<bean id="logInbound" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+	<bean id="logOutbound" class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
+	<bean id="methodbound" class="org.wangyt.mms.webservice.interceptor.MethodRouteInterceptor" />
+	<bean id="reportWsIn" class="org.wangyt.mms.webservice.interceptor.ReportWsInInterceptor" />
+	<bean id="reportWsOut" class="org.wangyt.mms.webservice.interceptor.ReportWsOutInterceptor" />
+	<bean id="wsAuthHandler" class="org.wangyt.mms.webservice.security.WsAuthHandler" />
+	<!-- <bean id="reportWsOut" class="org.wangyt.mms.webservice.interceptor.CopyOfReportWsOutInterceptor" /> -->
+
+	<!-- CXF全局拦截器 -->
+<!-- 
+	<cxf:bus>
+		<cxf:inInterceptors>
+			<ref bean="logInbound" />
+		</cxf:inInterceptors>
+ 		<cxf:inInterceptors>
+			<ref bean="methodbound" />
+		</cxf:inInterceptors>
+	</cxf:bus>
+ -->		
+<!-- 	
+	<cxf:bus>
+		<cxf:inInterceptors>
+			<ref bean="reportWsIn" />
+		</cxf:inInterceptors>
+		<cxf:outInterceptors>
+			<ref bean="reportWsOut" />
+		</cxf:outInterceptors>
+	</cxf:bus>
+ -->
+
+	<jaxws:endpoint id="helloWs"
+		implementor="org.wangyt.mms.webservice.helloworld.HelloWebServiceImpl"
+		address="/helloWs">
+		
+        <jaxws:inInterceptors>  
+            <bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />  
+            <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">  
+                <constructor-arg>  
+                    <map>  
+                        <entry key="action" value="UsernameToken" />  
+                        <entry key="passwordType" value="PasswordText" />  
+                        <entry key="passwordCallbackRef">
+                        	<ref bean="wsAuthHandler" />  
+                        </entry>
+                    </map>  
+                </constructor-arg>  
+            </bean>  
+        </jaxws:inInterceptors>  
+		
+	</jaxws:endpoint>
+
+	<jaxws:endpoint id="reportWs"
+		implementor="org.wangyt.mms.webservice.helloworld.ReportWsImpl"
+		address="/reportWs" />
+
+<!-- 	
+	<jaxws:endpoint id="wincReportWs"
+		implementor="org.wangyt.mms.webservice.winc_report.WincReportWsImpl"
+		address="/wincReportWs" >
+		<jaxws:properties>
+			<entry key="mtom-enabled" value="true" />
+		</jaxws:properties>
+	</jaxws:endpoint>
+ -->	
+ 
+	<jaxws:endpoint id="wincReportWs"
+		implementor="org.wangyt.mms.webservice.winc_report.WincReportWsImpl"
+		address="/wincReportWs" >
+		<jaxws:properties>
+			<entry key="mtom-enabled" value="true" />
+		</jaxws:properties>
+		<jaxws:inInterceptors>
+			<ref bean="reportWsIn"/>
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="reportWsOut"/>
+		</jaxws:outInterceptors>
+	</jaxws:endpoint>
+
+	<jaxws:endpoint id="downloadWs"
+		implementor="org.wangyt.mms.webservice.report.DownloadCandidateInfoServiceImpl"
+		address="/downloadWs">
+		<jaxws:properties>
+			<entry key="mtom-enabled" value="true" />
+		</jaxws:properties>
+	</jaxws:endpoint>
+
+</beans>
